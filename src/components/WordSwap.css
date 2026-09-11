@@ -1,30 +1,34 @@
-/* All words share one grid cell, so the box is always as wide as the longest
-   and nothing after it shifts when the word changes. */
+/* Words share one grid cell. Each is `nowrap` and start-aligned, so it keeps
+   its own text width even when the wrapper is narrower — the wrapper's width
+   is set from JS to whichever word is showing. */
 .swap {
   display: inline-grid;
   grid-template-areas: "word";
   justify-items: start;
   vertical-align: top;
+  transition: width 0.26s var(--ease-settle) 0.16s;
 }
 
 /* Keyframes, not transitions, for two reasons:
    1. `[data-reveal] .hl` declares its own `transition` for the marker wipe and
       outranks this rule — a transition here would be silently dropped;
    2. an animation always replays from its `from` state, so a word entering
-      always rises from below, even when it is re-entering from the position
-      it left in. */
+      always rises from below, even when re-entering from where it left. */
 .swap__word {
   grid-area: word;
   white-space: nowrap;
   opacity: 0;
 }
 
-.swap__word.is-current {
-  animation: swap-in 0.46s var(--ease-settle) both;
+/* The three stages are deliberately offset so nothing ever sits on the word
+   after it: the old word clears out first, then the box resizes, and only then
+   does the new word appear. */
+.swap__word.is-leaving {
+  animation: swap-out 0.22s var(--ease-settle) both;
 }
 
-.swap__word.is-leaving {
-  animation: swap-out 0.36s var(--ease-settle) both;
+.swap__word.is-current {
+  animation: swap-in 0.4s var(--ease-settle) 0.34s both;
 }
 
 @keyframes swap-in {
@@ -50,6 +54,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .swap {
+    transition: none;
+  }
   .swap__word {
     animation: none !important;
   }

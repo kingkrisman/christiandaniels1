@@ -15,7 +15,7 @@ export const about = {
     "Computer Science background, self-taught in design, and enough networking and security to know where things break.",
   ],
   facts: [
-    { value: "3", label: "products founded", tone: "yellow" },
+    { value: "1", label: "product founded", tone: "yellow" },
     { value: "2019", label: "building since", tone: "blue" },
     { value: "OND", label: "Computer Science", tone: "accent" },
   ],
@@ -139,7 +139,7 @@ export const socials = [
    from the browser, so this ends up in the bundle either way. Set
    VITE_WEB3FORMS_KEY to override it per environment. */
 export const formAccessKey =
-  import.meta.env.VITE_WEB3FORMS_KEY || "327e9c26-ab08-443d-befd-c20814a0957d";
+  import.meta.env.VITE_WEB3FORMS_KEY || "ee26693f-b1f0-46d5-91fa-0e4c0269a22a";
 
 /* Core skills from the CV, for the marquee. `kind` colours the bullet:
    dev = navy, sec = orange, design = blue. */

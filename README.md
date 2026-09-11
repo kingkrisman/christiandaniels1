@@ -29,6 +29,13 @@ npm run preview  # serve the built bundle
 | The cursor field and interaction hooks | `src/lib/pointer.js`, `src/hooks/` |
 | The portrait illustration | `src/assets/chris.png` |
 
+## Favicon
+
+`public/favicon.svg` — the same C geometry on a dark tile, with a heavier stroke and a
+larger caret so both survive at 16px. The `<link>` in `index.html` carries a `?v=` query
+because browsers cache favicons hard; bump it whenever the file changes, or the old one
+keeps showing.
+
 ## The mark
 
 `CMark` in `src/components/graphics/Logo.jsx` — a C drawn as one open arc with a
@@ -136,24 +143,33 @@ hover, entry and cursor transforms never overwrite each other.
 "I **design** top notch web applications", with the verb cycling **design ⇄ build**
 every 2.6s. It holds on the first word under reduced motion.
 
-`WordSwap` keeps every word mounted, stacked in one grid cell, so the wrapper is always
-as wide as the longest word and the rest of the line never moves. The highlighter sits
-on each word rather than the wrapper, so the marker hugs whichever word is showing —
-at the cost of a slightly wider gap after the shorter word.
+`WordSwap` keeps every word mounted as a grid item in one shared cell, and sets the
+wrapper's width from JS to whichever word is showing, so the rest of the line always
+sits tight against it. Each item is `justify-items: start` + `nowrap`, so it keeps its
+own text width even when the wrapper is narrower — that is what makes measuring the
+items directly reliable. A `ResizeObserver` plus `document.fonts.ready` re-measures when
+the font lands or the viewport changes the type scale.
+
+**The three stages are deliberately offset**, and the offsets are load-bearing: the old
+word clears out first (0.22s), *then* the box resizes (0.26s at 0.16s delay), and only
+then does the new word appear (0.4s at 0.34s delay). Collapse those and a word overruns
+the one after it — while the box is still growing the incoming word is already full
+size, and while it is still shrinking the outgoing word is still wide.
 
 **It animates with `@keyframes`, not `transition`, and that matters.** Each word carries
 `.hl`, and `[data-reveal] .hl` in `index.css` declares its own `transition` for the
 marker wipe. That selector (0,2,0) outranks `.swap__word` (0,1,0), so any `transition`
 set here is silently replaced and the words hard-cut with no tween. Keyframes sidestep
-the collision entirely, and as a bonus an animation always replays from its `from`
-state, so a word entering always rises from below — with transitions it re-entered from
-wherever it happened to leave, and the direction flipped every other cycle.
+the collision, and an animation always replays from its `from` state, so a word entering
+always rises from below — with transitions it re-entered from wherever it left, and the
+direction flipped every other cycle.
 
-Two earlier approaches that did not work, for the record: measuring each word from a
-hidden copy and transitioning the wrapper width (the incoming word hit full size before
-the box finished widening and overran "top" — and the measurement was wrong anyway,
-since block children inside an absolutely-positioned wrapper all take the wrapper's
-shrink-to-fit width rather than their own).
+An earlier version reserved the widest word's width for the wrapper so nothing moved at
+all. That was robust but left a visible gap after the shorter word.
+
+One dead end worth recording: measuring from hidden copies inside an absolutely
+positioned wrapper. Block children there all take the wrapper's shrink-to-fit width
+rather than their own, so every word measured the same.
 
 ## Motion
 
@@ -230,8 +246,9 @@ The whole request sits in a `try`, so a non-JSON response (a Cloudflare HTML err
 say) lands on the error state rather than throwing — verified.
 
 > Live round-trip could not be confirmed from the dev sandbox: Web3Forms sits behind
-> Cloudflare, which returns a 403 with no CORS headers to requests from this
-> environment. The request payload and every UI state were verified against a stub.
+> Cloudflare, which serves its "Just a moment..." challenge page (HTTP 403, no CORS
+> headers) to requests from this environment — from Node and from the browser alike.
+> The request payload and every UI state were verified against a stub.
 > **Submit the form once from your own browser to confirm the key end to end.**
 
 ## Layout notes
