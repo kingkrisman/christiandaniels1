@@ -1,0 +1,191 @@
+.services {
+  position: relative;
+}
+
+.services__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.7vw, 24px);
+  margin-top: clamp(30px, 4vw, 52px);
+  margin-inline: -46px -14px;
+}
+
+/* entry: each note drops onto the page and settles */
+.card-slot {
+  display: block;
+  perspective: 1100px;
+}
+
+.card-slot[data-reveal="card"] {
+  opacity: 0;
+  transform: translateY(-36px) rotate(5deg) scale(0.94);
+  transition: opacity 0.5s ease var(--d, 0ms),
+    transform 0.8s var(--ease-settle) var(--d, 0ms);
+}
+
+.card-slot[data-reveal="card"].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.card {
+  --rot: 0deg;
+  --rest: 0px;
+  --lift: 0px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 212 / 240;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(18px, 2.2vw, 30px);
+  padding-bottom: clamp(26px, 7vw, 96px);
+  border: 3px solid;
+  overflow: hidden;
+  transform: rotate(var(--rot)) translateY(calc(var(--rest) + var(--lift)))
+    rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.32s var(--ease-settle), box-shadow 0.3s ease;
+}
+
+.card__tool {
+  position: absolute;
+  top: clamp(14px, 1.8vw, 24px);
+  right: clamp(16px, 2vw, 26px);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: clamp(16px, 1.5vw, 21px);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.card__icon {
+  margin-top: clamp(28px, 4.4vw, 58px);
+  transition: transform 0.35s var(--ease-settle);
+}
+
+.card:hover .card__icon {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.card__title {
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: clamp(17px, 1.75vw, 24px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  max-width: 13ch;
+}
+
+/* a scan pass across the card, strongest on the security one */
+.card__sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 34%,
+    rgb(255 255 255 / 0.55) 50%,
+    transparent 66%
+  );
+  transform: translateX(-115%);
+  transition: transform 0.75s var(--ease-draw);
+}
+
+.card:hover .card__sheen {
+  transform: translateX(115%);
+}
+
+/* tones ---------------------------------------------------------- */
+.card--yellow {
+  background: var(--yellow);
+  border-color: var(--yellow-line);
+  border-radius: 18px 30px 20px 26px / 26px 18px 30px 20px;
+}
+.card--blue {
+  background: var(--blue);
+  border-color: var(--blue-line);
+  border-radius: 26px 18px 28px 20px / 20px 28px 18px 26px;
+}
+/* faint CRT scanlines, only on the security card */
+.card--accent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgb(20 20 20 / 0.055) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+.card--accent {
+  background: var(--accent);
+  border-color: var(--accent-line);
+  border-radius: 20px 28px 18px 30px / 30px 20px 26px 18px;
+}
+
+/* the pinned-note tilt -------------------------------------------- */
+.card--pos1 {
+  --rot: -3.4deg;
+}
+.card--pos2 {
+  --rot: 2.2deg;
+  --rest: -6px;
+}
+.card--pos3 {
+  --rot: -2.2deg;
+  --rest: 4px;
+}
+
+.card-slot:nth-child(2) {
+  z-index: 2;
+}
+
+.card--pos1:hover {
+  --lift: -10px;
+}
+.card--pos2:hover {
+  --lift: -18px;
+}
+.card--pos3:hover {
+  --lift: -6px;
+}
+
+.card:hover {
+  box-shadow: 0 22px 34px -26px rgb(0 0 0 / 0.45);
+}
+
+@media (max-width: 899px) {
+  .services__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    margin-inline: 0;
+    max-width: 330px;
+  }
+  .card {
+    aspect-ratio: 240 / 212;
+  }
+  .card__title {
+    max-width: 14ch;
+  }
+  .card--pos2,
+  .card--pos3 {
+    --rest: 0px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    --tilt-x: 0deg !important;
+    --tilt-y: 0deg !important;
+  }
+  .card__sheen {
+    display: none;
+  }
+}

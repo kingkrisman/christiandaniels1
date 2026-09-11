@@ -1,0 +1,98 @@
+.ticker {
+  position: relative;
+  margin-top: calc(var(--section-gap) * 0.78);
+  overflow: hidden;
+  border-block: 1px solid rgb(20 20 20 / 0.28);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-run 44s linear infinite;
+}
+
+.ticker__clone {
+  display: flex;
+}
+
+.ticker__group {
+  display: flex;
+  align-items: center;
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px clamp(14px, 1.5vw, 24px);
+  font-family: var(--font-mono);
+  font-size: clamp(11.5px, 1vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.ticker__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ticker__item--dev .ticker__dot {
+  background: var(--navy);
+}
+.ticker__item--sec .ticker__dot {
+  background: var(--accent-line);
+}
+.ticker__item--design .ticker__dot {
+  background: var(--blue-line);
+}
+
+/* security tools get the monospace bracket treatment */
+.ticker__item--sec {
+  color: var(--accent-line);
+}
+
+@keyframes ticker-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+/* fade the strip into the page at both ends */
+.ticker::before,
+.ticker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(28px, 6vw, 90px);
+  z-index: 1;
+  pointer-events: none;
+}
+.ticker::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg), transparent);
+}
+.ticker::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+  .ticker {
+    overflow-x: auto;
+  }
+  .ticker__clone {
+    display: none;
+  }
+}

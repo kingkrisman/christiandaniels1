@@ -1,0 +1,57 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink);
+}
+
+.logo__word {
+  font-size: calc(var(--logo-size) * 0.76);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.logo__mark {
+  transform: rotate(calc(var(--px, 0) * 6deg));
+  transition: transform 0.45s var(--ease-settle);
+  overflow: visible;
+}
+
+/* the caret blinks when you reach for the mark, like the one in the headline */
+.c-mark__caret {
+  transform-origin: 25.5px 16px;
+  transition: transform 0.4s var(--ease-settle);
+}
+
+.logo:hover .c-mark__caret {
+  animation: mark-blink 0.9s steps(1) infinite;
+}
+
+@keyframes mark-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  50%,
+  98% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.logo:hover .c-mark__arc {
+  stroke: var(--accent-line);
+  transition: stroke 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo__mark {
+    transform: none !important;
+  }
+  .logo:hover .c-mark__caret {
+    animation: none;
+  }
+}

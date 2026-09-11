@@ -1,0 +1,57 @@
+.header {
+  padding-top: clamp(26px, 3.4vw, 44px);
+}
+
+.header__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.6vw, 38px);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.header__nav a {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+/* a pen stroke drawn under the link on hover */
+.header__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s var(--ease-draw);
+}
+
+.header__nav a:hover::after,
+.header__nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.header__hire {
+  color: var(--accent-line);
+}
+
+.header__logo {
+  transition: transform 0.25s var(--ease-settle);
+}
+
+.header__logo:hover {
+  transform: rotate(-3deg) scale(1.04);
+}
+
+/* Wordmark left, links right, at every width. */

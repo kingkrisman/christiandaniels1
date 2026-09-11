@@ -1,0 +1,59 @@
+/* All words share one grid cell, so the box is always as wide as the longest
+   and nothing after it shifts when the word changes. */
+.swap {
+  display: inline-grid;
+  grid-template-areas: "word";
+  justify-items: start;
+  vertical-align: top;
+}
+
+/* Keyframes, not transitions, for two reasons:
+   1. `[data-reveal] .hl` declares its own `transition` for the marker wipe and
+      outranks this rule — a transition here would be silently dropped;
+   2. an animation always replays from its `from` state, so a word entering
+      always rises from below, even when it is re-entering from the position
+      it left in. */
+.swap__word {
+  grid-area: word;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.swap__word.is-current {
+  animation: swap-in 0.46s var(--ease-settle) both;
+}
+
+.swap__word.is-leaving {
+  animation: swap-out 0.36s var(--ease-settle) both;
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em) rotate(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes swap-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.46em) rotate(-5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap__word {
+    animation: none !important;
+  }
+  .swap__word.is-current {
+    opacity: 1;
+  }
+}

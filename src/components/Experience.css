@@ -1,0 +1,140 @@
+.experience {
+  position: relative;
+}
+
+.experience__layout {
+  position: relative;
+  z-index: 1;
+}
+
+.xp {
+  position: relative;
+  padding-block: clamp(28px, 4vw, 52px);
+}
+
+.xp__rule {
+  position: absolute;
+  background: var(--rule);
+  opacity: 0.85;
+}
+
+.xp__rule--top,
+.xp__rule--bottom {
+  height: 1px;
+  left: -42px;
+  right: -20px;
+}
+.xp__rule--top {
+  top: 0;
+}
+.xp__rule--bottom {
+  bottom: 0;
+}
+
+.xp__rule--left,
+.xp__rule--right {
+  width: 1px;
+  top: -16px;
+}
+.xp__rule--left {
+  left: 0;
+  bottom: -120px;
+}
+.xp__rule--right {
+  right: 44px;
+  bottom: -4px;
+}
+
+.xp__list {
+  display: grid;
+  gap: clamp(18px, 2.2vw, 28px);
+  padding-left: clamp(20px, 2.4vw, 34px);
+}
+
+.xp__item {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.xp__num {
+  flex-shrink: 0;
+  transform: rotate(calc(var(--px, 0) * 4deg))
+    translate(calc(var(--px, 0) * 2px), calc(var(--py, 0) * 1.5px));
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 4vw, 56px);
+  aspect-ratio: 1;
+  border: 2px solid;
+  border-radius: 10px 14px 10px 14px / 14px 10px 14px 10px;
+  font-size: clamp(18px, 1.7vw, 24px);
+  font-weight: 500;
+}
+
+.xp__num--yellow {
+  background: var(--yellow);
+  border-color: var(--yellow-line);
+}
+.xp__num--blue {
+  background: var(--blue);
+  border-color: var(--blue-line);
+}
+.xp__num--accent {
+  background: var(--accent);
+  border-color: var(--accent-line);
+}
+
+.xp__role {
+  font-size: clamp(14px, 1.3vw, 18px);
+  font-weight: 400;
+}
+
+.xp__role strong {
+  font-weight: 700;
+}
+
+.xp__detail {
+  margin-top: 4px;
+  font-size: clamp(11.5px, 1vw, 13.5px);
+  color: var(--ink-soft);
+}
+
+.xp__date {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, 0.9vw, 12.5px);
+  color: #8d8d8d;
+}
+
+@media (min-width: 900px) {
+  .experience__layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 380px) minmax(0, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+    align-items: start;
+  }
+  .experience__layout .intro {
+    padding-top: clamp(30px, 5vw, 70px);
+  }
+}
+
+@media (max-width: 899px) {
+  .xp {
+    padding-block: 24px 0;
+    margin-top: 12px;
+  }
+  /* the drawn frame is a desktop flourish only */
+  .xp__rule {
+    display: none;
+  }
+  .xp__list {
+    padding-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp__num {
+    transform: none !important;
+  }
+}

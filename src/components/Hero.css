@@ -1,0 +1,268 @@
+.hero {
+  position: relative;
+  padding-top: clamp(30px, 4.4vw, 56px);
+}
+
+.hero__badge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 16px);
+}
+
+/* portrait drifts with the cursor; the float lives on the image inside so the
+   two transforms don't collide */
+.hero__portrait {
+  display: block;
+  transform: translate3d(
+    calc(var(--px, 0) * 11px),
+    calc(var(--py, 0) * 7px),
+    0
+  );
+  transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.hero__portrait img {
+  height: clamp(112px, 12vw, 172px);
+  width: auto;
+  animation: portrait-float 7s ease-in-out infinite 1.2s;
+}
+
+@keyframes portrait-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.6deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(0.8deg);
+  }
+}
+
+/* the arrow pivots on its tail so the tip swings toward the cursor */
+.hero__arrow {
+  display: block;
+  color: var(--ink);
+  margin-bottom: 14px;
+  transform-origin: 92% 42%;
+  transform: rotate(var(--aim, 0deg));
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.hero__note {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.hero__name {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(20px, 2vw, 26px);
+  transform: rotate(calc(var(--px, 0) * 3.6deg))
+    translateY(calc(var(--py, 0) * -2.5px));
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* written out a letter at a time */
+.hero__name-ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.32em) rotate(-10deg) scale(0.8);
+  transition: opacity 0.28s ease var(--d, 0ms),
+    transform 0.45s var(--ease-settle) var(--d, 0ms);
+}
+
+[data-reveal].is-in .hero__name-ch {
+  opacity: 1;
+  transform: none;
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(26px, 4vw, 48px);
+  margin-top: clamp(18px, 2.6vw, 30px);
+  align-items: start;
+}
+
+.hero__title {
+  font-size: clamp(31px, 4.2vw, 56px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  max-width: 19ch;
+}
+
+.hero__title .word + .word {
+  margin-left: 0.26em;
+}
+
+/* terminal caret — the software half of the theme, in one character */
+.caret {
+  display: inline-block;
+  width: 0.075em;
+  height: 0.78em;
+  margin-left: 0.16em;
+  vertical-align: baseline;
+  transform: translateY(0.04em);
+  background: var(--accent-line);
+  animation: caret-blink 1.15s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  50%,
+  98% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero__intro {
+  font-size: clamp(15px, 1.35vw, 18px);
+  line-height: 1.55;
+  max-width: 33ch;
+}
+
+.hero__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(18px, 2.4vw, 26px);
+}
+
+.hero__cta {
+  display: inline-block;
+}
+
+/* a console-style status line — the software half, stated plainly */
+.hero__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 9px;
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.95vw, 12.5px);
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  opacity: 0.62;
+}
+
+.hero__status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3fbf6a;
+  box-shadow: 0 0 0 0 rgb(63 191 106 / 0.55);
+  animation: status-pulse 2.2s ease-out infinite;
+}
+
+@keyframes status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(63 191 106 / 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px rgb(63 191 106 / 0);
+  }
+}
+
+.hero__status-text {
+  white-space: nowrap;
+}
+
+.hero__status-sep {
+  opacity: 0.45;
+}
+
+/* black pill button, reused by the contact form */
+.btn {
+  --mag-x: 0px;
+  --mag-y: 0px;
+  --lift: 0px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(var(--mag-x), calc(var(--mag-y) + var(--lift)), 0);
+  transition: transform 0.3s var(--ease-settle), background-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+/* a marker sweep that passes through on hover */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgb(255 176 122 / 0.45) 50%,
+    transparent 80%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.6s var(--ease-draw);
+}
+
+.btn:hover {
+  background: #262626;
+  --lift: -3px;
+  box-shadow: 0 12px 24px -14px rgb(0 0 0 / 0.7);
+}
+
+.btn:hover::after {
+  transform: translateX(110%);
+}
+
+.btn:active {
+  --lift: -1px;
+}
+
+@media (min-width: 900px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 100px);
+  }
+  .hero__aside {
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero__arrow .side-arrow {
+    width: 48px;
+  }
+  .hero__title {
+    max-width: 14ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__portrait,
+  .hero__portrait img,
+  .hero__name,
+  .hero__arrow {
+    animation: none;
+    transform: none !important;
+  }
+  .caret {
+    animation: none;
+  }
+}

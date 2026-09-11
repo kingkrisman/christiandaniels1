@@ -1,0 +1,51 @@
+.intro__index {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, 0.9vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  opacity: 0.42;
+}
+
+.intro__label {
+  font-size: clamp(24px, 2.4vw, 33px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.intro__arrow {
+  display: block;
+  width: max-content;
+  margin: 16px 0 0 18px;
+  color: var(--ink);
+  /* pivot near the tail so the tip is what swings */
+  transform-origin: 60% 8%;
+  transform: rotate(var(--aim, 0deg));
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.intro__note {
+  margin-top: 26px;
+  max-width: 22ch;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+@media (max-width: 899px) {
+  .intro__note {
+    margin-top: 16px;
+    max-width: 26ch;
+  }
+  .intro__arrow {
+    margin-left: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro__arrow {
+    transform: none !important;
+  }
+}
