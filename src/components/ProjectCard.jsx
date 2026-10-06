@@ -29,6 +29,7 @@ export default function ProjectCard({ project, index }) {
         >
           <figure className="project__figure">
             <div className="project__shot hand">
+              {project.status && <span className="project__status">{project.status}</span>}
               {project.image ? (
                 <img src={project.image} alt={project.title} loading="lazy" />
               ) : (

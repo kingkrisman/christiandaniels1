@@ -6,13 +6,14 @@ export const profile = {
     "I design the interface, build the full stack behind it, and secure what ships.",
   status: "available for work",
   email: "christiandaniels1104@gmail.com",
+  cv: "/Christian-Daniels-CV.pdf",
 };
 
 export const about = {
   paragraphs: [
-    "I'm a founder and full-stack developer. NeuroLens, KÀWÉ and Daniels Network all started as my own ideas, and I built each one end to end — the interface, the backend, and the infrastructure underneath.",
-    "The same work pays the bills at DA'SAYONCE Real Estate, where I run development and IT: React and Node applications, the platforms around them, and keeping the company's data and digital assets safe.",
-    "Computer Science background, self-taught in design, and enough networking and security to know where things break.",
+    "I'm a full-stack developer and IT manager who builds web applications in React, Node.js and SQL, from the first sketch in Figma to the server they run on. I founded NeuroLens, a browser extension and reading platform that adapts text, pacing and focus aids for readers with dyslexia and ADHD.",
+    "Day to day I lead development and IT at DA'SAYONCE Real Estate & Properties: building the company's web apps, running its infrastructure and listings platforms, managing digital marketing, and keeping its data and digital assets safe.",
+    "Before that I shipped and managed client sites at WillyWillMar, made motion and brand work at Derev Digital, taught Computer Science, and repaired phones. I hold an OND in Computer Science, taught myself design, and know enough networking and security to see where things break.",
   ],
   facts: [
     { value: "1", label: "product founded", tone: "yellow" },
@@ -51,33 +52,13 @@ export const services = [
 export const projects = [
   {
     id: "neurolens",
-    stack: "React · Node · AI",
+    stack: "React · Node · ML",
     title: "NeuroLens adaptive reader",
-    tag: "AI Product",
+    tag: "Assistive Tech",
     tone: "accent",
     mock: "neurolens",
     image: null,
-    href: "https://neurolens21lite.vercel.app/",
-  },
-  {
-    id: "kawe",
-    stack: "React · SQL · Realtime",
-    title: "KÀWÉ assessment platform",
-    tag: "EdTech",
-    tone: "blue",
-    mock: "kawe",
-    image: null,
-    href: "https://kawe31.netlify.app",
-  },
-  {
-    id: "daniels-network",
-    stack: "React · Streaming · CDN",
-    title: "Daniels Network live TV",
-    tag: "Streaming",
-    tone: "yellow",
-    mock: "streaming",
-    image: null,
-    href: "https://danielsnet.netlify.app/",
+    href: "https://neurolens.space/",
   },
   {
     id: "dasayonce",
@@ -89,9 +70,46 @@ export const projects = [
     image: null,
     href: "https://www.dasayoncerealestate.com/",
   },
+  {
+    id: "kawe",
+    stack: "React · SQL · Realtime",
+    title: "KÀWÉ assessment platform",
+    tag: "EdTech",
+    tone: "blue",
+    mock: "kawe",
+    image: null,
+    status: "In development",
+    href: "https://kawe11.vercel.app/",
+  },
+  {
+    id: "daniels-network",
+    stack: "React · Streaming · CDN",
+    title: "Daniels Network live TV",
+    tag: "Streaming",
+    tone: "yellow",
+    mock: "streaming",
+    image: null,
+    href: "https://tv-ctpg.vercel.app/",
+  },
+];
+
+/* Smaller landing-page builds, listed as plain links under the main grid. */
+export const landingPages = [
+  { id: "tenista", title: "Tenista", href: "https://tenista6.vercel.app/" },
+  { id: "aeline", title: "Aeline", href: "https://aeline-one.vercel.app/" },
+  { id: "cityarcade", title: "City Arcade", href: "https://cityarcade.vercel.app/" },
+  { id: "gaming", title: "Gaming site", href: "https://gaming-site-two.vercel.app/" },
 ];
 
 export const experience = [
+  {
+    id: "neurolens",
+    role: "Founder & Lead Developer at",
+    company: "NeuroLens",
+    detail: "Adaptive reading extension and platform for readers with dyslexia and ADHD",
+    date: "2026 — Present",
+    tone: "accent",
+  },
   {
     id: "fullstack-dev",
     role: "Full-Stack Developer at",
@@ -110,7 +128,7 @@ export const experience = [
   },
   {
     id: "derev",
-    role: "Video Editor / Designer at",
+    role: "Motion & Graphic Designer at",
     company: "Derev Digital Concepts",
     detail: "Motion graphics and branding for marketing and social",
     date: "2025",
@@ -123,6 +141,38 @@ export const experience = [
     detail: "Led consultancy web projects from requirements through launch",
     date: "2024",
     tone: "yellow",
+  },
+  {
+    id: "sail",
+    role: "Software Development Intern at",
+    company: "SAIL Innovation Lab",
+    detail: "Structured training in advanced programming and software development",
+    date: "2024 — 2025",
+    tone: "blue",
+  },
+  {
+    id: "bright-future",
+    role: "Teacher at",
+    company: "Bright Future Schools",
+    detail: "Lesson plans for Computer Science, Mathematics and Chemistry",
+    date: "2023 — 2024",
+    tone: "accent",
+  },
+  {
+    id: "megarich",
+    role: "Intern at",
+    company: "Megarich Consults & Networks",
+    detail: "Entrepreneurship, corporate ethics, negotiation and human relations",
+    date: "2022",
+    tone: "yellow",
+  },
+  {
+    id: "upper-hands",
+    role: "Mobile Phone Technician at",
+    company: "Upper Hands Repair",
+    detail: "Diagnosed and repaired hardware and software faults",
+    date: "2019 — 2020",
+    tone: "blue",
   },
 ];
 

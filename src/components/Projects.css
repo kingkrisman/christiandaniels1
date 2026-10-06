@@ -51,6 +51,35 @@
   background: #ececec;
 }
 
+.project__shot {
+  position: relative;
+}
+
+.project__status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: clamp(9.5px, 0.8vw, 11px);
+  letter-spacing: 0.02em;
+}
+
+.project__status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
 .project__shot .mock,
 .project__shot img {
   transition: transform 0.5s var(--ease-settle);
@@ -145,8 +174,69 @@
   background: var(--green);
 }
 
+/* smaller builds: a ruled list of links under the card grid */
+.landings {
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
+.landings__label {
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, 0.9vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+
+.landings__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(16px, 2.2vw, 34px);
+}
+
+.landings__link {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 4px;
+  border-bottom: 1.5px solid var(--ink);
+  transition: color 0.2s ease;
+}
+
+.landings__title {
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 500;
+}
+
+.landings__host {
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(9.5px, 0.8vw, 11px);
+  opacity: 0.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.landings__arrow {
+  margin-left: auto;
+  transition: transform 0.25s var(--ease-settle);
+}
+
+.landings__link:hover {
+  color: var(--accent-line);
+}
+
+.landings__link:hover .landings__arrow {
+  transform: translate(2px, -2px);
+}
+
 /* label column beside the grid, as in the comp */
 @media (min-width: 900px) {
+  .landings {
+    grid-column: 2;
+  }
   .projects__layout {
     display: grid;
     grid-template-columns: minmax(200px, 300px) minmax(0, 1fr);
@@ -162,6 +252,10 @@
   .projects__grid {
     grid-template-columns: minmax(0, 1fr);
     margin-top: 28px;
+    max-width: 360px;
+  }
+  .landings__list {
+    grid-template-columns: minmax(0, 1fr);
     max-width: 360px;
   }
 }

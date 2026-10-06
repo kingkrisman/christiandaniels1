@@ -1,7 +1,7 @@
 import SectionIntro from "./SectionIntro";
 import ProjectCard from "./ProjectCard";
 import Doodles from "./graphics/Doodles";
-import { projects } from "../data/content";
+import { projects, landingPages } from "../data/content";
 import "./Projects.css";
 
 const DOODLES = [
@@ -34,6 +34,28 @@ export default function Projects() {
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </ul>
+
+        <div className="landings" data-reveal="up">
+          <h3 className="landings__label">Landing pages</h3>
+          <ul className="landings__list">
+            {landingPages.map((page) => (
+              <li key={page.id}>
+                <a
+                  className="landings__link"
+                  href={page.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="landings__title">{page.title}</span>
+                  <span className="landings__host">{new URL(page.href).host}</span>
+                  <span className="landings__arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

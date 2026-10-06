@@ -104,6 +104,12 @@ export default function Hero() {
             >
               Hire me
             </a>
+            <a className="btn btn--ghost" href={profile.cv} target="_blank" rel="noreferrer">
+              View CV
+            </a>
+            <a className="hero__download" href={profile.cv} download>
+              Download PDF
+            </a>
           </span>
 
           <p className="hero__status" data-reveal="up" style={{ "--d": "760ms" }}>

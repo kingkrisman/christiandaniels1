@@ -12,6 +12,9 @@ export default function Header() {
         <nav className="header__nav" aria-label="Primary">
           <a href="#about">About</a>
           <a href="#projects">Portfolio</a>
+          <a href={profile.cv} target="_blank" rel="noreferrer">
+            CV
+          </a>
           <a className="header__hire" href="#contact">
             Hire Me
           </a>
